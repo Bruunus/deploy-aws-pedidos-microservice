@@ -11,6 +11,9 @@ public class CdkAwsAluraInfraApp {
         AluraClusterStack clusterStack = new AluraClusterStack(app, "Cluster", vpcStack.getVpc());
         clusterStack.addDependency(clusterStack); // o cluster não iniciar sem a vpc original
 
+        AluraServiceStack aluraServiceStack = 
+        		new AluraServiceStack(app, "Service", clusterStack.getCluster());
+        aluraServiceStack.addDependency(clusterStack);
         app.synth();
     }
 }
